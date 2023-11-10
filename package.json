@@ -1,0 +1,33 @@
+{
+ "name": "united-heaven-contracts",
+ "version": "0.0.0",
+ "license": "MIT",
+ "scripts": {
+  "generate-client": "algokitgen generate -a contracts/artifacts/SmartContracts.json -o contracts/clients/SmartContractsClient.ts",
+  "compile-contract": "tealscript contracts/smart-contracts.algo.ts contracts/artifacts",
+  "generate-components": "algokit-generate-component contracts/artifacts/SmartContracts.json contracts/artifacts/components",
+  "build": "bun run compile-contract && bun run generate-client",
+  "test": "bun run build && jest",
+  "lint": "eslint . --ext .ts",
+  "fix": "eslint . --ext .ts --fix",
+  "format": "prettier --write ."
+ },
+ "dependencies": {
+  "@algorandfoundation/algokit-utils": "^4.1.0",
+  "algosdk": "^2.7.0"
+ },
+ "devDependencies": {
+  "@algorandfoundation/algokit-client-generator": "^2.2.5",
+  "@algorandfoundation/tealscript": "^0.61.0",
+  "@joe-p/algokit-generate-component": "^0.2.0",
+  "@typescript-eslint/eslint-plugin": "^6.10.0",
+  "@typescript-eslint/parser": "^6.10.0",
+  "bun-types": "latest",
+  "eslint": "^8.53.0",
+  "eslint-plugin-prettier": "^5.0.1",
+  "jest": "^29.7.0",
+  "prettier": "^3.0.3",
+  "ts-jest": "^29.1.1",
+  "typescript": "^5.2.2"
+ }
+}
