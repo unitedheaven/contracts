@@ -1,0 +1,144 @@
+{
+  "name": "Action",
+  "desc": "",
+  "methods": [
+    {
+      "name": "createApplication",
+      "args": [],
+      "desc": "",
+      "returns": {
+        "type": "void",
+        "desc": ""
+      }
+    },
+    {
+      "name": "bootstrap",
+      "args": [
+        {
+          "name": "startDate",
+          "type": "uint64",
+          "desc": ""
+        },
+        {
+          "name": "endDate",
+          "type": "uint64",
+          "desc": ""
+        },
+        {
+          "name": "goal",
+          "type": "uint64",
+          "desc": ""
+        }
+      ],
+      "desc": "",
+      "returns": {
+        "type": "void",
+        "desc": ""
+      }
+    },
+    {
+      "name": "changeTokenAsset",
+      "args": [
+        {
+          "name": "newTokenAsset",
+          "type": "asset",
+          "desc": ""
+        }
+      ],
+      "desc": "",
+      "returns": {
+        "type": "void",
+        "desc": ""
+      }
+    },
+    {
+      "name": "getActionDetails",
+      "args": [],
+      "desc": "",
+      "returns": {
+        "type": "(uint64,uint64,uint64,uint64)",
+        "desc": ""
+      }
+    },
+    {
+      "name": "changeMinDonationAmount",
+      "args": [
+        {
+          "name": "newMinDonationAmount",
+          "type": "uint64",
+          "desc": ""
+        }
+      ],
+      "desc": "",
+      "returns": {
+        "type": "void",
+        "desc": ""
+      }
+    },
+    {
+      "name": "donate",
+      "args": [
+        {
+          "name": "donation",
+          "type": "axfer",
+          "desc": ""
+        }
+      ],
+      "desc": "",
+      "returns": {
+        "type": "void",
+        "desc": ""
+      }
+    },
+    {
+      "name": "dispense",
+      "args": [
+        {
+          "name": "amount",
+          "type": "uint64",
+          "desc": ""
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "desc": ""
+        },
+        {
+          "name": "id",
+          "type": "uint64",
+          "desc": ""
+        },
+        {
+          "name": "transferToken",
+          "type": "asset",
+          "desc": ""
+        }
+      ],
+      "desc": "",
+      "returns": {
+        "type": "void",
+        "desc": ""
+      }
+    },
+    {
+      "name": "recollect",
+      "args": [
+        {
+          "name": "receiver",
+          "type": "address",
+          "desc": ""
+        },
+        {
+          "name": "transferToken",
+          "type": "asset",
+          "desc": ""
+        }
+      ],
+      "desc": "",
+      "returns": {
+        "type": "void",
+        "desc": ""
+      }
+    }
+  ]
+}
