@@ -15,7 +15,7 @@ const assetTransfer = async (props: AssetTransferProps) => {
             to: props.to,
             amount: props.amount,
             assetIndex: props.assetIndex,
-            suggestedParams: { ...params }
+            suggestedParams: { ...params },
         })
         .signTxn(props.from.sk)
     return await props.algod.sendRawTransaction(signed).do()

@@ -18,10 +18,12 @@ const createToken = async (props: CreateTokenProps) => {
         assetName: props.name,
         manager: props.account.addr,
         unitName: props.name,
-        suggestedParams: params
+        suggestedParams: params,
     })
 
-    const rawTx = await props.algod.sendRawTransaction(tokenTx.signTxn(props.account.sk)).do()
+    const rawTx = await props.algod
+        .sendRawTransaction(tokenTx.signTxn(props.account.sk))
+        .do()
     const token = await algokit.waitForConfirmation(rawTx.txId, 3, props.algod)
     const tokenId = Number(token.assetIndex)
     return tokenId

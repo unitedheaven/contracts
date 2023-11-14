@@ -13,7 +13,7 @@ const optInToAsset = (props: OptInToAssetProps) => {
         to: props.account.addr,
         assetIndex: props.assetIndex,
         amount: 0,
-        algod: props.algod
+        algod: props.algod,
     })
 }
 
