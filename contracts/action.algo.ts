@@ -64,7 +64,7 @@ class Action extends Contract {
         assert(this.tokenAsset.value === Asset.zeroIndex);
 
         assert(startDate < endDate);
-        assert(endDate > globals.latestTimestamp);
+        assert(startDate > globals.latestTimestamp);
         assert(goal > 0);
 
 
@@ -94,8 +94,7 @@ class Action extends Contract {
     }
 
     donate(donation: AssetTransferTxn): void {
-        assert(globals.latestTimestamp < this.endDate.value);
-        assert(this.goal.value > this.totalDonations.value);
+        assert(globals.latestTimestamp < this.startDate.value);
         verifyTxn(donation, {
             assetAmount: { greaterThan: this.minDonationAmount.value },
             assetReceiver: this.app.address,

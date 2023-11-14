@@ -11,23 +11,6 @@ import createToken from '../contracts/lib/createToken';
 import optInToAsset from '../contracts/lib/optInToAsset';
 import assetTransfer from '../contracts/lib/assetTransfer';
 
-// const kmd = algokit.getAlgoKmdClient({
-//     server: 'http://localhost',
-//     port: 4002,
-//     token: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-// })
-
-// async function getUHGovernanceAddress() {
-//     const UHGovernance = await kmd.createWallet(
-//         'UHGovernance',
-//         'Fakepasswordtobesoonchanged',
-//         undefined,
-//         'sqlite'
-//     );
-
-//     return UHGovernance
-// }
-
 const fixture = algorandFixture()
 
 let appClient: ActionClient;
@@ -124,8 +107,8 @@ describe('Action', () => {
 
     test('Bootstrap fails if not called by action creator', async () => {
         // convert start date and end date to unix timestamp
-        const startDate = Math.floor(new Date('2023-11-10T07:36:44Z').getTime() / 1000);
-        const endDate = Math.floor(new Date('2025-11-20T07:36:44Z').getTime() / 1000);
+        const startDate = Math.floor(new Date('2034-11-10T07:36:44Z').getTime() / 1000);
+        const endDate = Math.floor(new Date('2035-11-20T07:36:44Z').getTime() / 1000);
 
         await expect(appClient.bootstrap({
             endDate,
@@ -145,8 +128,8 @@ describe('Action', () => {
         const goalAmount = 2000 * USDCBaseUnitMultiplier;
 
         // convert start date and end date to unix timestamp
-        const startDate = Math.floor(new Date('2023-11-10T07:36:44Z').getTime() / 1000);
-        const endDate = Math.floor(new Date('2025-11-20T07:36:44Z').getTime() / 1000);
+        const startDate = Math.floor(new Date('2034-11-10T07:36:44Z').getTime() / 1000);
+        const endDate = Math.floor(new Date('2035-11-20T07:36:44Z').getTime() / 1000);
 
         await appClient.bootstrap({
             endDate,
