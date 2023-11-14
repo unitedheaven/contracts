@@ -13,8 +13,5 @@
     "parserOptions": {
         "project": "./tsconfig.json"
     },
-    "plugins": ["@typescript-eslint"],
-    "rules": {
-        "semi": ["error", "never"]
-    }
+    "plugins": ["@typescript-eslint"]
 }

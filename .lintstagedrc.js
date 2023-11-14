@@ -1,16 +1,16 @@
-const path = require('path')
+const path = require('path');
 
 const buildEslintCommand = filenames =>
     `eslint --fix ${filenames
         .map(f => path.relative(process.cwd(), f))
-        .join(' ')}`
+        .join(' ')}`;
 
 const buildPrettierCommand = filenames =>
     `prettier --write ${filenames
         .map(f => path.relative(process.cwd(), f))
-        .join(' ')}`
+        .join(' ')}`;
 
 module.exports = {
     '*.{js,ts}': [buildEslintCommand, buildPrettierCommand],
     '*.{json,md}': [buildPrettierCommand],
-}
+};

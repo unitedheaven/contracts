@@ -4,7 +4,7 @@
  * DO NOT MODIFY IT BY HAND.
  * requires: @algorandfoundation/algokit-utils: ^2
  */
-import * as algokit from '@algorandfoundation/algokit-utils'
+import * as algokit from '@algorandfoundation/algokit-utils';
 import type {
     AppCallTransactionResult,
     AppCallTransactionResultOfType,
@@ -13,27 +13,27 @@ import type {
     AppState,
     TealTemplateParams,
     ABIAppCallArg,
-} from '@algorandfoundation/algokit-utils/types/app'
+} from '@algorandfoundation/algokit-utils/types/app';
 import type {
     AppClientCallCoreParams,
     AppClientCompilationParams,
     AppClientDeployCoreParams,
     AppDetails,
     ApplicationClient,
-} from '@algorandfoundation/algokit-utils/types/app-client'
-import type { AppSpec } from '@algorandfoundation/algokit-utils/types/app-spec'
+} from '@algorandfoundation/algokit-utils/types/app-client';
+import type { AppSpec } from '@algorandfoundation/algokit-utils/types/app-spec';
 import type {
     SendTransactionResult,
     TransactionToSign,
     SendTransactionFrom,
-} from '@algorandfoundation/algokit-utils/types/transaction'
-import type { TransactionWithSigner } from 'algosdk'
+} from '@algorandfoundation/algokit-utils/types/transaction';
+import type { TransactionWithSigner } from 'algosdk';
 import {
     Algodv2,
     OnApplicationComplete,
     Transaction,
     AtomicTransactionComposer,
-} from 'algosdk'
+} from 'algosdk';
 export const APP_SPEC: AppSpec = {
     hints: {
         'createApplication()void': {
@@ -268,42 +268,42 @@ export const APP_SPEC: AppSpec = {
             },
         ],
     },
-}
+};
 
 /**
  * Defines an onCompletionAction of 'no_op'
  */
 export type OnCompleteNoOp = {
-    onCompleteAction?: 'no_op' | OnApplicationComplete.NoOpOC
-}
+    onCompleteAction?: 'no_op' | OnApplicationComplete.NoOpOC;
+};
 /**
  * Defines an onCompletionAction of 'opt_in'
  */
 export type OnCompleteOptIn = {
-    onCompleteAction: 'opt_in' | OnApplicationComplete.OptInOC
-}
+    onCompleteAction: 'opt_in' | OnApplicationComplete.OptInOC;
+};
 /**
  * Defines an onCompletionAction of 'close_out'
  */
 export type OnCompleteCloseOut = {
-    onCompleteAction: 'close_out' | OnApplicationComplete.CloseOutOC
-}
+    onCompleteAction: 'close_out' | OnApplicationComplete.CloseOutOC;
+};
 /**
  * Defines an onCompletionAction of 'delete_application'
  */
 export type OnCompleteDelApp = {
     onCompleteAction:
         | 'delete_application'
-        | OnApplicationComplete.DeleteApplicationOC
-}
+        | OnApplicationComplete.DeleteApplicationOC;
+};
 /**
  * Defines an onCompletionAction of 'update_application'
  */
 export type OnCompleteUpdApp = {
     onCompleteAction:
         | 'update_application'
-        | OnApplicationComplete.UpdateApplicationOC
-}
+        | OnApplicationComplete.UpdateApplicationOC;
+};
 /**
  * A state record containing a single unsigned integer
  */
@@ -311,12 +311,12 @@ export type IntegerState = {
     /**
      * Gets the state value as a BigInt
      */
-    asBigInt(): bigint
+    asBigInt(): bigint;
     /**
      * Gets the state value as a number.
      */
-    asNumber(): number
-}
+    asNumber(): number;
+};
 /**
  * A state record containing binary data
  */
@@ -324,12 +324,12 @@ export type BinaryState = {
     /**
      * Gets the state value as a Uint8Array
      */
-    asByteArray(): Uint8Array
+    asByteArray(): Uint8Array;
     /**
      * Gets the state value as a string
      */
-    asString(): string
-}
+    asString(): string;
+};
 
 /**
  * Defines the types of available calls and state of the Action smart contract.
@@ -341,45 +341,45 @@ export type Action = {
     methods: Record<
         'createApplication()void' | 'createApplication',
         {
-            argsObj: {}
-            argsTuple: []
-            returns: void
+            argsObj: {};
+            argsTuple: [];
+            returns: void;
         }
     > &
         Record<
             'bootstrap(uint64,uint64,uint64)void' | 'bootstrap',
             {
                 argsObj: {
-                    startDate: bigint | number
-                    endDate: bigint | number
-                    goal: bigint | number
-                }
+                    startDate: bigint | number;
+                    endDate: bigint | number;
+                    goal: bigint | number;
+                };
                 argsTuple: [
                     startDate: bigint | number,
                     endDate: bigint | number,
                     goal: bigint | number,
-                ]
-                returns: void
+                ];
+                returns: void;
             }
         > &
         Record<
             'changeTokenAsset(asset)void' | 'changeTokenAsset',
             {
                 argsObj: {
-                    newTokenAsset: number | bigint
-                }
-                argsTuple: [newTokenAsset: number | bigint]
-                returns: void
+                    newTokenAsset: number | bigint;
+                };
+                argsTuple: [newTokenAsset: number | bigint];
+                returns: void;
             }
         > &
         Record<
             'changeMinDonationAmount(uint64)void' | 'changeMinDonationAmount',
             {
                 argsObj: {
-                    newMinDonationAmount: bigint | number
-                }
-                argsTuple: [newMinDonationAmount: bigint | number]
-                returns: void
+                    newMinDonationAmount: bigint | number;
+                };
+                argsTuple: [newMinDonationAmount: bigint | number];
+                returns: void;
             }
         > &
         Record<
@@ -389,109 +389,109 @@ export type Action = {
                     donation:
                         | TransactionToSign
                         | Transaction
-                        | Promise<SendTransactionResult>
-                }
+                        | Promise<SendTransactionResult>;
+                };
                 argsTuple: [
                     donation:
                         | TransactionToSign
                         | Transaction
                         | Promise<SendTransactionResult>,
-                ]
-                returns: void
+                ];
+                returns: void;
             }
         > &
         Record<
             'dispense(uint64,string,uint64,asset)void' | 'dispense',
             {
                 argsObj: {
-                    amount: bigint | number
-                    description: string
-                    id: bigint | number
-                    transferToken: number | bigint
-                }
+                    amount: bigint | number;
+                    description: string;
+                    id: bigint | number;
+                    transferToken: number | bigint;
+                };
                 argsTuple: [
                     amount: bigint | number,
                     description: string,
                     id: bigint | number,
                     transferToken: number | bigint,
-                ]
-                returns: void
+                ];
+                returns: void;
             }
         > &
         Record<
             'recollect(address,asset)void' | 'recollect',
             {
                 argsObj: {
-                    receiver: string
-                    transferToken: number | bigint
-                }
-                argsTuple: [receiver: string, transferToken: number | bigint]
-                returns: void
+                    receiver: string;
+                    transferToken: number | bigint;
+                };
+                argsTuple: [receiver: string, transferToken: number | bigint];
+                returns: void;
             }
-        >
+        >;
     /**
      * Defines the shape of the global and local state of the application.
      */
     state: {
         global: {
-            ta?: IntegerState
-            g?: IntegerState
-            td?: IntegerState
-            sd?: IntegerState
-            ed?: IntegerState
-            mda?: IntegerState
-            ab?: IntegerState
-        }
-    }
-}
+            ta?: IntegerState;
+            g?: IntegerState;
+            td?: IntegerState;
+            sd?: IntegerState;
+            ed?: IntegerState;
+            mda?: IntegerState;
+            ab?: IntegerState;
+        };
+    };
+};
 /**
  * Defines the possible abi call signatures
  */
-export type ActionSig = keyof Action['methods']
+export type ActionSig = keyof Action['methods'];
 /**
  * Defines an object containing all relevant parameters for a single call to the contract. Where TSignature is undefined, a bare call is made
  */
 export type TypedCallParams<TSignature extends ActionSig | undefined> = {
-    method: TSignature
+    method: TSignature;
     methodArgs: TSignature extends undefined
         ? undefined
-        : Array<ABIAppCallArg | undefined>
+        : Array<ABIAppCallArg | undefined>;
 } & AppClientCallCoreParams &
-    CoreAppCallArgs
+    CoreAppCallArgs;
 /**
  * Defines the arguments required for a bare call
  */
-export type BareCallArgs = Omit<RawAppCallArgs, keyof CoreAppCallArgs>
+export type BareCallArgs = Omit<RawAppCallArgs, keyof CoreAppCallArgs>;
 /**
  * Maps a method signature from the Action smart contract to the method's arguments in either tuple of struct form
  */
 export type MethodArgs<TSignature extends ActionSig> =
-    Action['methods'][TSignature]['argsObj' | 'argsTuple']
+    Action['methods'][TSignature]['argsObj' | 'argsTuple'];
 /**
  * Maps a method signature from the Action smart contract to the method's return type
  */
 export type MethodReturn<TSignature extends ActionSig> =
-    Action['methods'][TSignature]['returns']
+    Action['methods'][TSignature]['returns'];
 
 /**
  * A factory for available 'create' calls
  */
-export type ActionCreateCalls = (typeof ActionCallFactory)['create']
+export type ActionCreateCalls = (typeof ActionCallFactory)['create'];
 /**
  * Defines supported create methods for this smart contract
  */
 export type ActionCreateCallParams =
-    TypedCallParams<'createApplication()void'> & OnCompleteNoOp
+    TypedCallParams<'createApplication()void'> & OnCompleteNoOp;
 /**
  * Defines arguments required for the deploy method.
  */
 export type ActionDeployArgs = {
-    deployTimeParams?: TealTemplateParams
+    deployTimeParams?: TealTemplateParams;
     /**
      * A delegate which takes a create call factory and returns the create call params for this smart contract
      */
-    createCall?: (callFactory: ActionCreateCalls) => ActionCreateCallParams
-}
+    createCall?: (callFactory: ActionCreateCalls) => ActionCreateCallParams;
+};
 
 /**
  * Exposes methods for constructing all available smart contract calls
@@ -520,9 +520,9 @@ export abstract class ActionCallFactory {
                     method: 'createApplication()void' as const,
                     methodArgs: Array.isArray(args) ? args : [],
                     ...params,
-                }
+                };
             },
-        }
+        };
     }
 
     /**
@@ -542,7 +542,7 @@ export abstract class ActionCallFactory {
                 ? args
                 : [args.startDate, args.endDate, args.goal],
             ...params,
-        }
+        };
     }
     /**
      * Constructs a no op call for the changeTokenAsset(asset)void ABI method
@@ -559,7 +559,7 @@ export abstract class ActionCallFactory {
             method: 'changeTokenAsset(asset)void' as const,
             methodArgs: Array.isArray(args) ? args : [args.newTokenAsset],
             ...params,
-        }
+        };
     }
     /**
      * Constructs a no op call for the changeMinDonationAmount(uint64)void ABI method
@@ -578,7 +578,7 @@ export abstract class ActionCallFactory {
                 ? args
                 : [args.newMinDonationAmount],
             ...params,
-        }
+        };
     }
     /**
      * Constructs a no op call for the donate(axfer)void ABI method
@@ -595,7 +595,7 @@ export abstract class ActionCallFactory {
             method: 'donate(axfer)void' as const,
             methodArgs: Array.isArray(args) ? args : [args.donation],
             ...params,
-        }
+        };
     }
     /**
      * Constructs a no op call for the dispense(uint64,string,uint64,asset)void ABI method
@@ -614,7 +614,7 @@ export abstract class ActionCallFactory {
                 ? args
                 : [args.amount, args.description, args.id, args.transferToken],
             ...params,
-        }
+        };
     }
     /**
      * Constructs a no op call for the recollect(address,asset)void ABI method
@@ -633,7 +633,7 @@ export abstract class ActionCallFactory {
                 ? args
                 : [args.receiver, args.transferToken],
             ...params,
-        }
+        };
     }
 }
 
@@ -644,9 +644,9 @@ export class ActionClient {
     /**
      * The underlying `ApplicationClient` for when you want to have more flexibility
      */
-    public readonly appClient: ApplicationClient
+    public readonly appClient: ApplicationClient;
 
-    private readonly sender: SendTransactionFrom | undefined
+    private readonly sender: SendTransactionFrom | undefined;
 
     /**
      * Creates a new instance of `ActionClient`
@@ -658,14 +658,14 @@ export class ActionClient {
         appDetails: AppDetails,
         private algod: Algodv2,
     ) {
-        this.sender = appDetails.sender
+        this.sender = appDetails.sender;
         this.appClient = algokit.getAppClient(
             {
                 ...appDetails,
                 app: APP_SPEC,
             },
             algod,
-        )
+        );
     }
 
     /**
@@ -680,14 +680,14 @@ export class ActionClient {
         returnValueFormatter?: (value: any) => TReturn,
     ): AppCallTransactionResultOfType<TReturn> {
         if (result.return?.decodeError) {
-            throw result.return.decodeError
+            throw result.return.decodeError;
         }
         const returnValue =
             result.return?.returnValue !== undefined &&
             returnValueFormatter !== undefined
                 ? returnValueFormatter(result.return.returnValue)
-                : (result.return?.returnValue as TReturn | undefined)
-        return { ...result, return: returnValue }
+                : (result.return?.returnValue as TReturn | undefined);
+        return { ...result, return: returnValue };
     }
 
     /**
@@ -704,7 +704,7 @@ export class ActionClient {
         return this.mapReturnValue<MethodReturn<TSignature>>(
             await this.appClient.call(typedCallParams),
             returnValueFormatter,
-        )
+        );
     }
 
     /**
@@ -716,19 +716,19 @@ export class ActionClient {
     public deploy(
         params: ActionDeployArgs & AppClientDeployCoreParams = {},
     ): ReturnType<ApplicationClient['deploy']> {
-        const createArgs = params.createCall?.(ActionCallFactory.create)
+        const createArgs = params.createCall?.(ActionCallFactory.create);
         return this.appClient.deploy({
             ...params,
             createArgs,
             createOnCompleteAction: createArgs?.onCompleteAction,
-        })
+        });
     }
 
     /**
      * Gets available create methods
      */
     public get create() {
-        const $this = this
+        const $this = this;
         return {
             /**
              * Creates a new instance of the Action smart contract using the createApplication()void ABI method.
@@ -754,9 +754,9 @@ export class ActionClient {
                             params,
                         ),
                     ),
-                )
+                );
             },
-        }
+        };
     }
 
     /**
@@ -768,7 +768,7 @@ export class ActionClient {
     public clearState(
         args: BareCallArgs & AppClientCallCoreParams & CoreAppCallArgs = {},
     ) {
-        return this.appClient.clearState(args)
+        return this.appClient.clearState(args);
     }
 
     /**
@@ -782,7 +782,7 @@ export class ActionClient {
         args: MethodArgs<'bootstrap(uint64,uint64,uint64)void'>,
         params: AppClientCallCoreParams & CoreAppCallArgs = {},
     ) {
-        return this.call(ActionCallFactory.bootstrap(args, params))
+        return this.call(ActionCallFactory.bootstrap(args, params));
     }
 
     /**
@@ -796,7 +796,7 @@ export class ActionClient {
         args: MethodArgs<'changeTokenAsset(asset)void'>,
         params: AppClientCallCoreParams & CoreAppCallArgs = {},
     ) {
-        return this.call(ActionCallFactory.changeTokenAsset(args, params))
+        return this.call(ActionCallFactory.changeTokenAsset(args, params));
     }
 
     /**
@@ -812,7 +812,7 @@ export class ActionClient {
     ) {
         return this.call(
             ActionCallFactory.changeMinDonationAmount(args, params),
-        )
+        );
     }
 
     /**
@@ -826,7 +826,7 @@ export class ActionClient {
         args: MethodArgs<'donate(axfer)void'>,
         params: AppClientCallCoreParams & CoreAppCallArgs = {},
     ) {
-        return this.call(ActionCallFactory.donate(args, params))
+        return this.call(ActionCallFactory.donate(args, params));
     }
 
     /**
@@ -840,7 +840,7 @@ export class ActionClient {
         args: MethodArgs<'dispense(uint64,string,uint64,asset)void'>,
         params: AppClientCallCoreParams & CoreAppCallArgs = {},
     ) {
-        return this.call(ActionCallFactory.dispense(args, params))
+        return this.call(ActionCallFactory.dispense(args, params));
     }
 
     /**
@@ -854,7 +854,7 @@ export class ActionClient {
         args: MethodArgs<'recollect(address,asset)void'>,
         params: AppClientCallCoreParams & CoreAppCallArgs = {},
     ) {
-        return this.call(ActionCallFactory.recollect(args, params))
+        return this.call(ActionCallFactory.recollect(args, params));
     }
 
     /**
@@ -868,20 +868,20 @@ export class ActionClient {
         state: AppState,
         key: string,
     ): BinaryState | undefined {
-        const value = state[key]
-        if (!value) return undefined
+        const value = state[key];
+        if (!value) return undefined;
         if (!('valueRaw' in value))
             throw new Error(
                 `Failed to parse state value for ${key}; received an int when expected a byte array`,
-            )
+            );
         return {
             asString(): string {
-                return value.value
+                return value.value;
             },
             asByteArray(): Uint8Array {
-                return value.valueRaw
+                return value.valueRaw;
             },
-        }
+        };
     }
 
     /**
@@ -895,61 +895,61 @@ export class ActionClient {
         state: AppState,
         key: string,
     ): IntegerState | undefined {
-        const value = state[key]
-        if (!value) return undefined
+        const value = state[key];
+        if (!value) return undefined;
         if ('valueRaw' in value)
             throw new Error(
                 `Failed to parse state value for ${key}; received a byte array when expected a number`,
-            )
+            );
         return {
             asBigInt() {
                 return typeof value.value === 'bigint'
                     ? value.value
-                    : BigInt(value.value)
+                    : BigInt(value.value);
             },
             asNumber(): number {
                 return typeof value.value === 'bigint'
                     ? Number(value.value)
-                    : value.value
+                    : value.value;
             },
-        }
+        };
     }
 
     /**
      * Returns the smart contract's global state wrapped in a strongly typed accessor with options to format the stored value
      */
     public async getGlobalState(): Promise<Action['state']['global']> {
-        const state = await this.appClient.getGlobalState()
+        const state = await this.appClient.getGlobalState();
         return {
             get ta() {
-                return ActionClient.getIntegerState(state, 'ta')
+                return ActionClient.getIntegerState(state, 'ta');
             },
             get g() {
-                return ActionClient.getIntegerState(state, 'g')
+                return ActionClient.getIntegerState(state, 'g');
             },
             get td() {
-                return ActionClient.getIntegerState(state, 'td')
+                return ActionClient.getIntegerState(state, 'td');
             },
             get sd() {
-                return ActionClient.getIntegerState(state, 'sd')
+                return ActionClient.getIntegerState(state, 'sd');
             },
             get ed() {
-                return ActionClient.getIntegerState(state, 'ed')
+                return ActionClient.getIntegerState(state, 'ed');
             },
             get mda() {
-                return ActionClient.getIntegerState(state, 'mda')
+                return ActionClient.getIntegerState(state, 'mda');
             },
             get ab() {
-                return ActionClient.getIntegerState(state, 'ab')
+                return ActionClient.getIntegerState(state, 'ab');
             },
-        }
+        };
     }
 
     public compose(): ActionComposer {
-        const client = this
-        const atc = new AtomicTransactionComposer()
-        let promiseChain: Promise<unknown> = Promise.resolve()
-        const resultMappers: Array<undefined | ((x: any) => any)> = []
+        const client = this;
+        const atc = new AtomicTransactionComposer();
+        let promiseChain: Promise<unknown> = Promise.resolve();
+        const resultMappers: Array<undefined | ((x: any) => any)> = [];
         return {
             bootstrap(
                 args: MethodArgs<'bootstrap(uint64,uint64,uint64)void'>,
@@ -964,9 +964,9 @@ export class ActionClient {
                             atc,
                         },
                     }),
-                )
-                resultMappers.push(undefined)
-                return this
+                );
+                resultMappers.push(undefined);
+                return this;
             },
             changeTokenAsset(
                 args: MethodArgs<'changeTokenAsset(asset)void'>,
@@ -981,9 +981,9 @@ export class ActionClient {
                             atc,
                         },
                     }),
-                )
-                resultMappers.push(undefined)
-                return this
+                );
+                resultMappers.push(undefined);
+                return this;
             },
             changeMinDonationAmount(
                 args: MethodArgs<'changeMinDonationAmount(uint64)void'>,
@@ -998,9 +998,9 @@ export class ActionClient {
                             atc,
                         },
                     }),
-                )
-                resultMappers.push(undefined)
-                return this
+                );
+                resultMappers.push(undefined);
+                return this;
             },
             donate(
                 args: MethodArgs<'donate(axfer)void'>,
@@ -1015,9 +1015,9 @@ export class ActionClient {
                             atc,
                         },
                     }),
-                )
-                resultMappers.push(undefined)
-                return this
+                );
+                resultMappers.push(undefined);
+                return this;
             },
             dispense(
                 args: MethodArgs<'dispense(uint64,string,uint64,asset)void'>,
@@ -1032,9 +1032,9 @@ export class ActionClient {
                             atc,
                         },
                     }),
-                )
-                resultMappers.push(undefined)
-                return this
+                );
+                resultMappers.push(undefined);
+                return this;
             },
             recollect(
                 args: MethodArgs<'recollect(address,asset)void'>,
@@ -1049,9 +1049,9 @@ export class ActionClient {
                             atc,
                         },
                     }),
-                )
-                resultMappers.push(undefined)
-                return this
+                );
+                resultMappers.push(undefined);
+                return this;
             },
             clearState(
                 args?: BareCallArgs & AppClientCallCoreParams & CoreAppCallArgs,
@@ -1065,9 +1065,9 @@ export class ActionClient {
                             atc,
                         },
                     }),
-                )
-                resultMappers.push(undefined)
-                return this
+                );
+                resultMappers.push(undefined);
+                return this;
             },
             addTransaction(
                 txn:
@@ -1084,19 +1084,19 @@ export class ActionClient {
                             defaultSender ?? client.sender,
                         ),
                     ),
-                )
-                return this
+                );
+                return this;
             },
             async atc() {
-                await promiseChain
-                return atc
+                await promiseChain;
+                return atc;
             },
             async execute() {
-                await promiseChain
+                await promiseChain;
                 const result = await algokit.sendAtomicTransactionComposer(
                     { atc, sendParams: {} },
                     client.algod,
-                )
+                );
                 return {
                     ...result,
                     returns: result.returns?.map((val, i) =>
@@ -1104,9 +1104,9 @@ export class ActionClient {
                             ? resultMappers[i]!(val.returnValue)
                             : val.returnValue,
                     ),
-                }
+                };
             },
-        } as unknown as ActionComposer
+        } as unknown as ActionComposer;
     }
 }
 export type ActionComposer<TReturns extends [...any[]] = []> = {
@@ -1122,7 +1122,7 @@ export type ActionComposer<TReturns extends [...any[]] = []> = {
         params?: AppClientCallCoreParams & CoreAppCallArgs,
     ): ActionComposer<
         [...TReturns, MethodReturn<'bootstrap(uint64,uint64,uint64)void'>]
-    >
+    >;
 
     /**
      * Calls the changeTokenAsset(asset)void ABI method.
@@ -1136,7 +1136,7 @@ export type ActionComposer<TReturns extends [...any[]] = []> = {
         params?: AppClientCallCoreParams & CoreAppCallArgs,
     ): ActionComposer<
         [...TReturns, MethodReturn<'changeTokenAsset(asset)void'>]
-    >
+    >;
 
     /**
      * Calls the changeMinDonationAmount(uint64)void ABI method.
@@ -1150,7 +1150,7 @@ export type ActionComposer<TReturns extends [...any[]] = []> = {
         params?: AppClientCallCoreParams & CoreAppCallArgs,
     ): ActionComposer<
         [...TReturns, MethodReturn<'changeMinDonationAmount(uint64)void'>]
-    >
+    >;
 
     /**
      * Calls the donate(axfer)void ABI method.
@@ -1162,7 +1162,7 @@ export type ActionComposer<TReturns extends [...any[]] = []> = {
     donate(
         args: MethodArgs<'donate(axfer)void'>,
         params?: AppClientCallCoreParams & CoreAppCallArgs,
-    ): ActionComposer<[...TReturns, MethodReturn<'donate(axfer)void'>]>
+    ): ActionComposer<[...TReturns, MethodReturn<'donate(axfer)void'>]>;
 
     /**
      * Calls the dispense(uint64,string,uint64,asset)void ABI method.
@@ -1176,7 +1176,7 @@ export type ActionComposer<TReturns extends [...any[]] = []> = {
         params?: AppClientCallCoreParams & CoreAppCallArgs,
     ): ActionComposer<
         [...TReturns, MethodReturn<'dispense(uint64,string,uint64,asset)void'>]
-    >
+    >;
 
     /**
      * Calls the recollect(address,asset)void ABI method.
@@ -1190,7 +1190,7 @@ export type ActionComposer<TReturns extends [...any[]] = []> = {
         params?: AppClientCallCoreParams & CoreAppCallArgs,
     ): ActionComposer<
         [...TReturns, MethodReturn<'recollect(address,asset)void'>]
-    >
+    >;
 
     /**
      * Makes a clear_state call to an existing instance of the Action smart contract.
@@ -1200,7 +1200,7 @@ export type ActionComposer<TReturns extends [...any[]] = []> = {
      */
     clearState(
         args?: BareCallArgs & AppClientCallCoreParams & CoreAppCallArgs,
-    ): ActionComposer<[...TReturns, undefined]>
+    ): ActionComposer<[...TReturns, undefined]>;
 
     /**
      * Adds a transaction to the composer
@@ -1215,19 +1215,19 @@ export type ActionComposer<TReturns extends [...any[]] = []> = {
             | Transaction
             | Promise<SendTransactionResult>,
         defaultSender?: SendTransactionFrom,
-    ): ActionComposer<TReturns>
+    ): ActionComposer<TReturns>;
     /**
      * Returns the underlying AtomicTransactionComposer instance
      */
-    atc(): Promise<AtomicTransactionComposer>
+    atc(): Promise<AtomicTransactionComposer>;
     /**
      * Executes the transaction group and returns an array of results
      */
-    execute(): Promise<ActionComposerResults<TReturns>>
-}
+    execute(): Promise<ActionComposerResults<TReturns>>;
+};
 export type ActionComposerResults<TReturns extends [...any[]]> = {
-    returns: TReturns
-    groupId: string
-    txIds: string[]
-    transactions: Transaction[]
-}
+    returns: TReturns;
+    groupId: string;
+    txIds: string[];
+    transactions: Transaction[];
+};

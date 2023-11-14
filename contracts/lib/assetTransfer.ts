@@ -1,14 +1,14 @@
-import algosdk, { Algodv2 } from 'algosdk'
+import algosdk, { Algodv2 } from 'algosdk';
 
 type AssetTransferProps = {
-    from: algosdk.Account
-    to: string
-    assetIndex: number
-    amount: number
-    algod: Algodv2
-}
+    from: algosdk.Account;
+    to: string;
+    assetIndex: number;
+    amount: number;
+    algod: Algodv2;
+};
 const assetTransfer = async (props: AssetTransferProps) => {
-    const params = await props.algod.getTransactionParams().do()
+    const params = await props.algod.getTransactionParams().do();
     const signed = algosdk
         .makeAssetTransferTxnWithSuggestedParamsFromObject({
             from: props.from.addr,
@@ -17,8 +17,8 @@ const assetTransfer = async (props: AssetTransferProps) => {
             assetIndex: props.assetIndex,
             suggestedParams: { ...params },
         })
-        .signTxn(props.from.sk)
-    return await props.algod.sendRawTransaction(signed).do()
-}
+        .signTxn(props.from.sk);
+    return await props.algod.sendRawTransaction(signed).do();
+};
 
-export default assetTransfer
+export default assetTransfer;
