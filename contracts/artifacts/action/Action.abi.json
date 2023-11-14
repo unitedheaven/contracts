@@ -52,15 +52,6 @@
       }
     },
     {
-      "name": "getActionDetails",
-      "args": [],
-      "desc": "",
-      "returns": {
-        "type": "(uint64,uint64,uint64,uint64)",
-        "desc": ""
-      }
-    },
-    {
       "name": "changeMinDonationAmount",
       "args": [
         {

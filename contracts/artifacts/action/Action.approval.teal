@@ -252,44 +252,6 @@ changeTokenAsset:
 	app_global_put
 	retsub
 
-// getActionDetails()(uint64,uint64,uint64,uint64)
-abi_route_getActionDetails:
-	// execute getActionDetails()(uint64,uint64,uint64,uint64)
-	callsub getActionDetails
-	int 1
-	return
-
-getActionDetails:
-	proto 0 0
-
-	// contracts/action.algo.ts:92
-	// return [
-	//             this.goal.value,
-	//             this.totalDonations.value,
-	//             this.startDate.value,
-	//             this.endDate.value
-	//         ];
-	byte 0x67 // "g"
-	app_global_get
-	itob
-	byte 0x7464 // "td"
-	app_global_get
-	itob
-	concat
-	byte 0x7364 // "sd"
-	app_global_get
-	itob
-	concat
-	byte 0x6564 // "ed"
-	app_global_get
-	itob
-	concat
-	byte 0x151f7c75
-	swap
-	concat
-	log
-	retsub
-
 // changeMinDonationAmount(uint64)void
 abi_route_changeMinDonationAmount:
 	// newMinDonationAmount: uint64
@@ -304,7 +266,7 @@ abi_route_changeMinDonationAmount:
 changeMinDonationAmount:
 	proto 1 0
 
-	// contracts/action.algo.ts:101
+	// contracts/action.algo.ts:92
 	// verifyTxn(this.txn, { sender: this.app.creator })
 	// verify sender
 	txn Sender
@@ -314,7 +276,7 @@ changeMinDonationAmount:
 	==
 	assert
 
-	// contracts/action.algo.ts:102
+	// contracts/action.algo.ts:93
 	// this.minDonationAmount.value = newMinDonationAmount
 	byte 0x6d6461 // "mda"
 	frame_dig -1 // newMinDonationAmount: uint64
@@ -343,7 +305,7 @@ abi_route_donate:
 donate:
 	proto 2 0
 
-	// contracts/action.algo.ts:106
+	// contracts/action.algo.ts:97
 	// assert(globals.latestTimestamp < this.endDate.value)
 	global LatestTimestamp
 	byte 0x6564 // "ed"
@@ -351,7 +313,7 @@ donate:
 	<
 	assert
 
-	// contracts/action.algo.ts:107
+	// contracts/action.algo.ts:98
 	// assert(this.goal.value > this.totalDonations.value)
 	byte 0x67 // "g"
 	app_global_get
@@ -360,7 +322,7 @@ donate:
 	>
 	assert
 
-	// contracts/action.algo.ts:108
+	// contracts/action.algo.ts:99
 	// verifyTxn(donation, {
 	//             assetAmount: { greaterThan: this.minDonationAmount.value },
 	//             assetReceiver: this.app.address,
@@ -398,7 +360,7 @@ donate:
 	assert
 
 	// if0_condition
-	// contracts/action.algo.ts:117
+	// contracts/action.algo.ts:108
 	// this.donations(this.txn.sender).exists
 	txn Sender
 	box_len
@@ -407,7 +369,7 @@ donate:
 	bz if0_else
 
 	// if0_consequent
-	// contracts/action.algo.ts:118
+	// contracts/action.algo.ts:109
 	// currentDonation = this.donations(this.txn.sender).value
 	txn Sender
 	box_get
@@ -417,13 +379,13 @@ donate:
 	b if0_end
 
 if0_else:
-	// contracts/action.algo.ts:120
+	// contracts/action.algo.ts:111
 	// currentDonation = 0
 	int 0
 	frame_bury -2 // currentDonation: uint64
 
 if0_end:
-	// contracts/action.algo.ts:123
+	// contracts/action.algo.ts:114
 	// this.donations(this.txn.sender).value = currentDonation + donation.assetAmount
 	txn Sender
 	int 0 // currentDonation: uint64
@@ -433,7 +395,7 @@ if0_end:
 	itob
 	box_put
 
-	// contracts/action.algo.ts:126
+	// contracts/action.algo.ts:117
 	// this.totalDonations.value = this.totalDonations.value + donation.assetAmount
 	byte 0x7464 // "td"
 	byte 0x7464 // "td"
@@ -443,7 +405,7 @@ if0_end:
 	+
 	app_global_put
 
-	// contracts/action.algo.ts:127
+	// contracts/action.algo.ts:118
 	// this.availableBalance.value = this.availableBalance.value + donation.assetAmount
 	byte 0x6162 // "ab"
 	byte 0x6162 // "ab"
@@ -485,7 +447,7 @@ abi_route_dispense:
 dispense:
 	proto 5 0
 
-	// contracts/action.algo.ts:132
+	// contracts/action.algo.ts:123
 	// verifyTxn(this.txn, { sender: this.app.creator })
 	// verify sender
 	txn Sender
@@ -495,7 +457,7 @@ dispense:
 	==
 	assert
 
-	// contracts/action.algo.ts:133
+	// contracts/action.algo.ts:124
 	// assert(this.availableBalance.value >= amount)
 	byte 0x6162 // "ab"
 	app_global_get
@@ -503,7 +465,7 @@ dispense:
 	>=
 	assert
 
-	// contracts/action.algo.ts:134
+	// contracts/action.algo.ts:125
 	// assert(globals.latestTimestamp < this.endDate.value + TWO_WEEKS_IN_SECONDS)
 	global LatestTimestamp
 	byte 0x6564 // "ed"
@@ -513,7 +475,7 @@ dispense:
 	<
 	assert
 
-	// contracts/action.algo.ts:135
+	// contracts/action.algo.ts:126
 	// this.doAxfer(this.txn.sender, this.tokenAsset.value, amount)
 	frame_dig -1 // amount: uint64
 	byte 0x7461 // "ta"
@@ -521,7 +483,7 @@ dispense:
 	txn Sender
 	callsub doAxfer
 
-	// contracts/action.algo.ts:136
+	// contracts/action.algo.ts:127
 	// this.availableBalance.value = this.availableBalance.value - amount
 	byte 0x6162 // "ab"
 	byte 0x6162 // "ab"
@@ -530,7 +492,7 @@ dispense:
 	-
 	app_global_put
 
-	// contracts/action.algo.ts:137
+	// contracts/action.algo.ts:128
 	// dispenseRecord: dispenseRecord = {
 	//             amount: amount,
 	//             description: description
@@ -553,7 +515,7 @@ dispense:
 	concat // concat head and tail
 	frame_bury -5 // dispenseRecord: dispenseRecord
 
-	// contracts/action.algo.ts:141
+	// contracts/action.algo.ts:132
 	// this.dispenseRecords(id).value = dispenseRecord
 	byte 0x6472 // "dr"
 	frame_dig -3 // id: uint64
@@ -591,7 +553,7 @@ abi_route_recollect:
 recollect:
 	proto 2 0
 
-	// contracts/action.algo.ts:148
+	// contracts/action.algo.ts:139
 	// assert(globals.latestTimestamp > this.endDate.value + TWO_WEEKS_IN_SECONDS)
 	global LatestTimestamp
 	byte 0x6564 // "ed"
@@ -601,7 +563,7 @@ recollect:
 	>
 	assert
 
-	// contracts/action.algo.ts:149
+	// contracts/action.algo.ts:140
 	// this.doAxfer(receiver, this.tokenAsset.value, this.availableBalance.value)
 	byte 0x6162 // "ab"
 	app_global_get
@@ -610,7 +572,7 @@ recollect:
 	frame_dig -1 // receiver: address
 	callsub doAxfer
 
-	// contracts/action.algo.ts:150
+	// contracts/action.algo.ts:141
 	// this.availableBalance.value = 0
 	byte 0x6162 // "ab"
 	int 0
@@ -626,13 +588,12 @@ create_NoOp:
 call_NoOp:
 	method "bootstrap(uint64,uint64,uint64)void"
 	method "changeTokenAsset(asset)void"
-	method "getActionDetails()(uint64,uint64,uint64,uint64)"
 	method "changeMinDonationAmount(uint64)void"
 	method "donate(axfer)void"
 	method "dispense(uint64,string,uint64,asset)void"
 	method "recollect(address,asset)void"
 	txna ApplicationArgs 0
-	match abi_route_bootstrap abi_route_changeTokenAsset abi_route_getActionDetails abi_route_changeMinDonationAmount abi_route_donate abi_route_dispense abi_route_recollect
+	match abi_route_bootstrap abi_route_changeTokenAsset abi_route_changeMinDonationAmount abi_route_donate abi_route_dispense abi_route_recollect
 	err
 
 process_static_tuple_element:

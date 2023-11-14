@@ -88,15 +88,6 @@ class Action extends Contract {
         this.tokenAsset.value = newTokenAsset;
     }
 
-    getActionDetails(): [uint64, uint64, uint64, uint64] {
-        return [
-            this.goal.value,
-            this.totalDonations.value,
-            this.startDate.value,
-            this.endDate.value
-        ];
-    }
-
     changeMinDonationAmount(newMinDonationAmount: uint64): void {
         verifyTxn(this.txn, { sender: this.app.creator });
         this.minDonationAmount.value = newMinDonationAmount;

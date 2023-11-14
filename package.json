@@ -3,10 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "generate-client": "algokitgen generate -a contracts/artifacts/action.json -o contracts/clients/action.ts",
-    "compile-contract": "tealscript contracts/action.algo.ts contracts/artifacts",
-    "generate-components": "algokit-generate-component contracts/artifacts/action.json contracts/artifacts/components",
-    "build": "bun run compile-contract && bun run generate-client",
+    "build": "bun scripts/buildContract.ts",
     "test": "bun run build && jest",
     "lint": "eslint . --ext .ts",
     "fix": "eslint . --ext .ts --fix",

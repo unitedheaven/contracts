@@ -159,13 +159,13 @@ describe('Action', () => {
             }
         });
 
-        const actionDetails = await appClient.getActionDetails({});
-        expect(actionDetails.return).toEqual([
-            BigInt(goalAmount),
-            BigInt(0),
-            BigInt(startDate),
-            BigInt(endDate)
-        ])
+        const { g: goal, td: totalDonations, sd: startDateFC, ed: endDateFC } = await appClient.getGlobalState();
+
+        expect(goal?.asNumber()).toEqual(goalAmount);
+        expect(totalDonations?.asNumber()).toEqual(0);
+        expect(startDateFC?.asNumber()).toEqual(startDate);
+        expect(endDateFC?.asNumber()).toEqual(endDate);
+
     });
 
     test('Token asset is set correctly to USDC token', async () => {
@@ -252,9 +252,9 @@ describe('Action', () => {
             boxes: boxRef,
         });
 
-        const actionDetails = await appClient.getActionDetails({});
+        const { td: totalDonations } = await appClient.getGlobalState();
 
-        expect(actionDetails.return![1]).toEqual(BigInt(amountToDonate))
+        expect(totalDonations?.asNumber()).toEqual(amountToDonate)
         const donationsMapValue = await appClient.appClient.getBoxValue(decodeAddress(donorAccount.addr).publicKey)
 
         // convert uint8Array back to uint64
