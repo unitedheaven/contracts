@@ -23,6 +23,9 @@ NOT_IMPLEMENTED:
 	err
 
 // createApplication()void
+//
+// Initializes the smart contract with default values.
+// Sets the USDC token to zero index initially.
 abi_route_createApplication:
 	// execute createApplication()void
 	callsub createApplication
@@ -32,43 +35,43 @@ abi_route_createApplication:
 createApplication:
 	proto 0 0
 
-	// contracts/action.algo.ts:28
+	// contracts/action.algo.ts:47
 	// this.tokenAsset.value = Asset.zeroIndex
 	byte 0x7461 // "ta"
 	int 0
 	app_global_put
 
-	// contracts/action.algo.ts:29
+	// contracts/action.algo.ts:48
 	// this.goal.value = 0
 	byte 0x67 // "g"
 	int 0
 	app_global_put
 
-	// contracts/action.algo.ts:30
+	// contracts/action.algo.ts:49
 	// this.totalDonations.value = 0
 	byte 0x7464 // "td"
 	int 0
 	app_global_put
 
-	// contracts/action.algo.ts:31
+	// contracts/action.algo.ts:50
 	// this.availableBalance.value = 0
 	byte 0x6162 // "ab"
 	int 0
 	app_global_put
 
-	// contracts/action.algo.ts:32
+	// contracts/action.algo.ts:51
 	// this.startDate.value = 0
 	byte 0x7364 // "sd"
 	int 0
 	app_global_put
 
-	// contracts/action.algo.ts:33
+	// contracts/action.algo.ts:52
 	// this.endDate.value = 0
 	byte 0x6564 // "ed"
 	int 0
 	app_global_put
 
-	// contracts/action.algo.ts:36
+	// contracts/action.algo.ts:55
 	// this.minDonationAmount.value = 10000
 	byte 0x6d6461 // "mda"
 	int 10000
@@ -78,7 +81,7 @@ createApplication:
 doAxfer:
 	proto 3 0
 
-	// contracts/action.algo.ts:40
+	// contracts/action.algo.ts:65
 	// sendAssetTransfer({
 	//             assetReceiver: receiver,
 	//             xferAsset: asset,
@@ -88,17 +91,17 @@ doAxfer:
 	int axfer
 	itxn_field TypeEnum
 
-	// contracts/action.algo.ts:41
+	// contracts/action.algo.ts:66
 	// assetReceiver: receiver
 	frame_dig -1 // receiver: account
 	itxn_field AssetReceiver
 
-	// contracts/action.algo.ts:42
+	// contracts/action.algo.ts:67
 	// xferAsset: asset
 	frame_dig -2 // asset: asset
 	itxn_field XferAsset
 
-	// contracts/action.algo.ts:43
+	// contracts/action.algo.ts:68
 	// assetAmount: amount
 	frame_dig -3 // amount: uint64
 	itxn_field AssetAmount
@@ -114,7 +117,7 @@ doAxfer:
 doOptIn:
 	proto 1 0
 
-	// contracts/action.algo.ts:48
+	// contracts/action.algo.ts:78
 	// this.doAxfer(this.app.address, asset, 0)
 	int 0
 	frame_dig -1 // asset: asset
@@ -125,14 +128,23 @@ doOptIn:
 isGovernance:
 	proto 1 1
 
-	// contracts/action.algo.ts:53
-	// return sender === addr('KTFB3FYITSXK7AMABHBME2DTHG37W32O72B3LQIWNTLELCKQYOFUNP2Y5E');
+	// contracts/action.algo.ts:88
+	// return (
+	//             sender ===
+	//             addr('KTFB3FYITSXK7AMABHBME2DTHG37W32O72B3LQIWNTLELCKQYOFUNP2Y5E')
+	//         );
 	frame_dig -1 // sender: address
 	addr KTFB3FYITSXK7AMABHBME2DTHG37W32O72B3LQIWNTLELCKQYOFUNP2Y5E
 	==
 	retsub
 
 // bootstrap(uint64,uint64,uint64)void
+//
+// Sets up the initial configuration of the action.
+// Validates the start and end dates, and the goal amount.
+// @param {uint64} startDate - The start date of the action (unix timestamp).
+// @param {uint64} endDate - The end date of the action (unix timestamp).
+// @param {uint64} goal - The goal amount for the action in USDC.
 abi_route_bootstrap:
 	byte 0x // push empty bytes to fill the stack frame for this subroutine's local variables
 
@@ -156,7 +168,7 @@ abi_route_bootstrap:
 bootstrap:
 	proto 4 0
 
-	// contracts/action.algo.ts:61
+	// contracts/action.algo.ts:102
 	// verifyTxn(this.txn, { sender: this.app.creator })
 	// verify sender
 	txn Sender
@@ -166,7 +178,7 @@ bootstrap:
 	==
 	assert
 
-	// contracts/action.algo.ts:64
+	// contracts/action.algo.ts:104
 	// assert(this.tokenAsset.value === Asset.zeroIndex)
 	byte 0x7461 // "ta"
 	app_global_get
@@ -174,51 +186,51 @@ bootstrap:
 	==
 	assert
 
-	// contracts/action.algo.ts:66
+	// contracts/action.algo.ts:105
 	// assert(startDate < endDate)
 	frame_dig -1 // startDate: uint64
 	frame_dig -2 // endDate: uint64
 	<
 	assert
 
-	// contracts/action.algo.ts:67
+	// contracts/action.algo.ts:106
 	// assert(startDate > globals.latestTimestamp)
 	frame_dig -1 // startDate: uint64
 	global LatestTimestamp
 	>
 	assert
 
-	// contracts/action.algo.ts:68
+	// contracts/action.algo.ts:107
 	// assert(goal > 0)
 	frame_dig -3 // goal: uint64
 	int 0
 	>
 	assert
 
-	// contracts/action.algo.ts:71
+	// contracts/action.algo.ts:109
 	// this.startDate.value = startDate
 	byte 0x7364 // "sd"
 	frame_dig -1 // startDate: uint64
 	app_global_put
 
-	// contracts/action.algo.ts:72
+	// contracts/action.algo.ts:110
 	// this.endDate.value = endDate
 	byte 0x6564 // "ed"
 	frame_dig -2 // endDate: uint64
 	app_global_put
 
-	// contracts/action.algo.ts:73
+	// contracts/action.algo.ts:111
 	// this.goal.value = goal
 	byte 0x67 // "g"
 	frame_dig -3 // goal: uint64
 	app_global_put
 
-	// contracts/action.algo.ts:76
+	// contracts/action.algo.ts:114
 	// tokenAsset = Asset.fromID(10458941)
 	int 10458941
 	frame_bury -4 // tokenAsset: asset
 
-	// contracts/action.algo.ts:81
+	// contracts/action.algo.ts:119
 	// this.tokenAsset.value = tokenAsset
 	byte 0x7461 // "ta"
 	int 10458941 // tokenAsset: asset
@@ -226,6 +238,10 @@ bootstrap:
 	retsub
 
 // changeTokenAsset(asset)void
+//
+// Changes the token asset associated with the contract.
+// This function is intended for use by the governance address.
+// @param {Asset} newTokenAsset - The new asset to be associated with the contract.
 abi_route_changeTokenAsset:
 	// newTokenAsset: asset
 	txna ApplicationArgs 1
@@ -240,12 +256,12 @@ abi_route_changeTokenAsset:
 changeTokenAsset:
 	proto 1 0
 
-	// contracts/action.algo.ts:87
+	// contracts/action.algo.ts:130
 	// this.doOptIn(newTokenAsset)
 	frame_dig -1 // newTokenAsset: asset
 	callsub doOptIn
 
-	// contracts/action.algo.ts:88
+	// contracts/action.algo.ts:131
 	// this.tokenAsset.value = newTokenAsset
 	byte 0x7461 // "ta"
 	frame_dig -1 // newTokenAsset: asset
@@ -253,6 +269,10 @@ changeTokenAsset:
 	retsub
 
 // changeMinDonationAmount(uint64)void
+//
+// Changes the minimum donation amount required to participate in the action.
+// This function can only be called by the contract creator.
+// @param {uint64} newMinDonationAmount - The new minimum donation amount in USDC.
 abi_route_changeMinDonationAmount:
 	// newMinDonationAmount: uint64
 	txna ApplicationArgs 1
@@ -266,7 +286,7 @@ abi_route_changeMinDonationAmount:
 changeMinDonationAmount:
 	proto 1 0
 
-	// contracts/action.algo.ts:92
+	// contracts/action.algo.ts:140
 	// verifyTxn(this.txn, { sender: this.app.creator })
 	// verify sender
 	txn Sender
@@ -276,7 +296,7 @@ changeMinDonationAmount:
 	==
 	assert
 
-	// contracts/action.algo.ts:93
+	// contracts/action.algo.ts:141
 	// this.minDonationAmount.value = newMinDonationAmount
 	byte 0x6d6461 // "mda"
 	frame_dig -1 // newMinDonationAmount: uint64
@@ -284,6 +304,10 @@ changeMinDonationAmount:
 	retsub
 
 // donate(axfer)void
+//
+// Allows a user to donate to the action.
+// Validates the donation amount and updates the total donations and available balance.
+// @param {AssetTransferTxn} donation - The donation transaction.
 abi_route_donate:
 	byte 0x // push empty bytes to fill the stack frame for this subroutine's local variables
 
@@ -305,7 +329,7 @@ abi_route_donate:
 donate:
 	proto 2 0
 
-	// contracts/action.algo.ts:97
+	// contracts/action.algo.ts:150
 	// assert(globals.latestTimestamp < this.startDate.value)
 	global LatestTimestamp
 	byte 0x7364 // "sd"
@@ -313,12 +337,12 @@ donate:
 	<
 	assert
 
-	// contracts/action.algo.ts:98
+	// contracts/action.algo.ts:151
 	// verifyTxn(donation, {
 	//             assetAmount: { greaterThan: this.minDonationAmount.value },
 	//             assetReceiver: this.app.address,
 	//             sender: this.txn.sender,
-	//             xferAsset: this.tokenAsset.value
+	//             xferAsset: this.tokenAsset.value,
 	//         })
 	// verify assetAmount
 	frame_dig -1 // donation: axfer
@@ -351,7 +375,7 @@ donate:
 	assert
 
 	// if0_condition
-	// contracts/action.algo.ts:107
+	// contracts/action.algo.ts:160
 	// this.donations(this.txn.sender).exists
 	txn Sender
 	box_len
@@ -360,7 +384,7 @@ donate:
 	bz if0_else
 
 	// if0_consequent
-	// contracts/action.algo.ts:108
+	// contracts/action.algo.ts:161
 	// currentDonation = this.donations(this.txn.sender).value
 	txn Sender
 	box_get
@@ -370,14 +394,15 @@ donate:
 	b if0_end
 
 if0_else:
-	// contracts/action.algo.ts:110
+	// contracts/action.algo.ts:163
 	// currentDonation = 0
 	int 0
 	frame_bury -2 // currentDonation: uint64
 
 if0_end:
-	// contracts/action.algo.ts:113
-	// this.donations(this.txn.sender).value = currentDonation + donation.assetAmount
+	// contracts/action.algo.ts:166
+	// this.donations(this.txn.sender).value =
+	//             currentDonation + donation.assetAmount
 	txn Sender
 	int 0 // currentDonation: uint64
 	frame_dig -1 // donation: axfer
@@ -386,8 +411,9 @@ if0_end:
 	itob
 	box_put
 
-	// contracts/action.algo.ts:116
-	// this.totalDonations.value = this.totalDonations.value + donation.assetAmount
+	// contracts/action.algo.ts:170
+	// this.totalDonations.value =
+	//             this.totalDonations.value + donation.assetAmount
 	byte 0x7464 // "td"
 	byte 0x7464 // "td"
 	app_global_get
@@ -396,8 +422,9 @@ if0_end:
 	+
 	app_global_put
 
-	// contracts/action.algo.ts:117
-	// this.availableBalance.value = this.availableBalance.value + donation.assetAmount
+	// contracts/action.algo.ts:172
+	// this.availableBalance.value =
+	//             this.availableBalance.value + donation.assetAmount
 	byte 0x6162 // "ab"
 	byte 0x6162 // "ab"
 	app_global_get
@@ -409,7 +436,12 @@ if0_end:
 
 // dispense(asset,uint64,string,uint64)void
 //
-// // eslint-disable-next-line no-unused-vars
+// Dispenses funds from the contract for the specified purpose.
+// This function can only be called by the contract creator.
+// @param {number} amount - The amount of funds to dispense.
+// @param {string} description - Description of the purpose for dispensing funds.
+// @param {uint64} id - Unique identifier for the dispense record.
+// @param {Asset} transferToken - The asset to be dispensed.
 abi_route_dispense:
 	byte 0x // push empty bytes to fill the stack frame for this subroutine's local variables
 
@@ -438,7 +470,7 @@ abi_route_dispense:
 dispense:
 	proto 5 0
 
-	// contracts/action.algo.ts:122
+	// contracts/action.algo.ts:191
 	// verifyTxn(this.txn, { sender: this.app.creator })
 	// verify sender
 	txn Sender
@@ -448,7 +480,7 @@ dispense:
 	==
 	assert
 
-	// contracts/action.algo.ts:123
+	// contracts/action.algo.ts:192
 	// assert(this.availableBalance.value >= amount)
 	byte 0x6162 // "ab"
 	app_global_get
@@ -456,8 +488,10 @@ dispense:
 	>=
 	assert
 
-	// contracts/action.algo.ts:124
-	// assert(globals.latestTimestamp < this.endDate.value + TWO_WEEKS_IN_SECONDS)
+	// contracts/action.algo.ts:193
+	// assert(
+	//             globals.latestTimestamp < this.endDate.value + TWO_WEEKS_IN_SECONDS,
+	//         )
 	global LatestTimestamp
 	byte 0x6564 // "ed"
 	app_global_get
@@ -466,7 +500,7 @@ dispense:
 	<
 	assert
 
-	// contracts/action.algo.ts:125
+	// contracts/action.algo.ts:196
 	// this.doAxfer(this.txn.sender, this.tokenAsset.value, amount)
 	frame_dig -1 // amount: uint64
 	byte 0x7461 // "ta"
@@ -474,7 +508,7 @@ dispense:
 	txn Sender
 	callsub doAxfer
 
-	// contracts/action.algo.ts:126
+	// contracts/action.algo.ts:197
 	// this.availableBalance.value = this.availableBalance.value - amount
 	byte 0x6162 // "ab"
 	byte 0x6162 // "ab"
@@ -483,10 +517,10 @@ dispense:
 	-
 	app_global_put
 
-	// contracts/action.algo.ts:127
+	// contracts/action.algo.ts:198
 	// dispenseRecord: dispenseRecord = {
 	//             amount: amount,
-	//             description: description
+	//             description: description,
 	//         }
 	byte 0x // initial head
 	byte 0x // initial tail
@@ -506,7 +540,7 @@ dispense:
 	concat // concat head and tail
 	frame_bury -5 // dispenseRecord: dispenseRecord
 
-	// contracts/action.algo.ts:131
+	// contracts/action.algo.ts:202
 	// this.dispenseRecords(id).value = dispenseRecord
 	byte 0x6472 // "dr"
 	frame_dig -3 // id: uint64
@@ -521,7 +555,7 @@ dispense:
 
 // recollect(asset,address)void
 //
-// // recollect remaining funds after 2 weeks of campaign end
+// // eslint-disable-next-line @typescript-eslint/no-unused-vars
 abi_route_recollect:
 	// transferToken: asset
 	txna ApplicationArgs 2
@@ -544,8 +578,10 @@ abi_route_recollect:
 recollect:
 	proto 2 0
 
-	// contracts/action.algo.ts:138
-	// assert(globals.latestTimestamp > this.endDate.value + TWO_WEEKS_IN_SECONDS)
+	// contracts/action.algo.ts:215
+	// assert(
+	//             globals.latestTimestamp > this.endDate.value + TWO_WEEKS_IN_SECONDS,
+	//         )
 	global LatestTimestamp
 	byte 0x6564 // "ed"
 	app_global_get
@@ -554,8 +590,12 @@ recollect:
 	>
 	assert
 
-	// contracts/action.algo.ts:139
-	// this.doAxfer(receiver, this.tokenAsset.value, this.availableBalance.value)
+	// contracts/action.algo.ts:218
+	// this.doAxfer(
+	//             receiver,
+	//             this.tokenAsset.value,
+	//             this.availableBalance.value,
+	//         )
 	byte 0x6162 // "ab"
 	app_global_get
 	byte 0x7461 // "ta"
@@ -563,7 +603,7 @@ recollect:
 	frame_dig -1 // receiver: address
 	callsub doAxfer
 
-	// contracts/action.algo.ts:140
+	// contracts/action.algo.ts:223
 	// this.availableBalance.value = 0
 	byte 0x6162 // "ab"
 	int 0

@@ -5,7 +5,7 @@
         {
             "name": "createApplication",
             "args": [],
-            "desc": "",
+            "desc": "Initializes the smart contract with default values.Sets the USDC token to zero index initially.",
             "returns": {
                 "type": "void",
                 "desc": ""
@@ -17,20 +17,20 @@
                 {
                     "name": "startDate",
                     "type": "uint64",
-                    "desc": ""
+                    "desc": "The start date of the action (unix timestamp)."
                 },
                 {
                     "name": "endDate",
                     "type": "uint64",
-                    "desc": ""
+                    "desc": "The end date of the action (unix timestamp)."
                 },
                 {
                     "name": "goal",
                     "type": "uint64",
-                    "desc": ""
+                    "desc": "The goal amount for the action in USDC."
                 }
             ],
-            "desc": "",
+            "desc": "Sets up the initial configuration of the action.Validates the start and end dates, and the goal amount.",
             "returns": {
                 "type": "void",
                 "desc": ""
@@ -42,10 +42,10 @@
                 {
                     "name": "newTokenAsset",
                     "type": "asset",
-                    "desc": ""
+                    "desc": "The new asset to be associated with the contract."
                 }
             ],
-            "desc": "",
+            "desc": "Changes the token asset associated with the contract.This function is intended for use by the governance address.",
             "returns": {
                 "type": "void",
                 "desc": ""
@@ -57,10 +57,10 @@
                 {
                     "name": "newMinDonationAmount",
                     "type": "uint64",
-                    "desc": ""
+                    "desc": "The new minimum donation amount in USDC."
                 }
             ],
-            "desc": "",
+            "desc": "Changes the minimum donation amount required to participate in the action.This function can only be called by the contract creator.",
             "returns": {
                 "type": "void",
                 "desc": ""
@@ -72,10 +72,10 @@
                 {
                     "name": "donation",
                     "type": "axfer",
-                    "desc": ""
+                    "desc": "The donation transaction."
                 }
             ],
-            "desc": "",
+            "desc": "Allows a user to donate to the action.Validates the donation amount and updates the total donations and available balance.",
             "returns": {
                 "type": "void",
                 "desc": ""
@@ -87,25 +87,25 @@
                 {
                     "name": "amount",
                     "type": "uint64",
-                    "desc": ""
+                    "desc": "The amount of funds to dispense."
                 },
                 {
                     "name": "description",
                     "type": "string",
-                    "desc": ""
+                    "desc": "Description of the purpose for dispensing funds."
                 },
                 {
                     "name": "id",
                     "type": "uint64",
-                    "desc": ""
+                    "desc": "Unique identifier for the dispense record."
                 },
                 {
                     "name": "transferToken",
                     "type": "asset",
-                    "desc": ""
+                    "desc": "The asset to be dispensed."
                 }
             ],
-            "desc": "",
+            "desc": "Dispenses funds from the contract for the specified purpose.This function can only be called by the contract creator.",
             "returns": {
                 "type": "void",
                 "desc": ""

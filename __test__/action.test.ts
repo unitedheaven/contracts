@@ -1,20 +1,20 @@
-import { describe, test, expect, beforeAll, beforeEach } from '@jest/globals';
-import algosdk, { decodeAddress, decodeUint64 } from 'algosdk';
-import { algorandFixture } from '@algorandfoundation/algokit-utils/testing';
 import {
     algos,
-    microAlgos,
     getOrCreateKmdWalletAccount,
+    microAlgos,
 } from '@algorandfoundation/algokit-utils';
-import { ActionClient } from '../contracts/clients/action';
+import { algorandFixture } from '@algorandfoundation/algokit-utils/testing';
 import {
     AppMetadata,
     AppReference,
 } from '@algorandfoundation/algokit-utils/types/app';
+import { beforeAll, beforeEach, describe, expect, test } from '@jest/globals';
+import algosdk, { decodeAddress, decodeUint64 } from 'algosdk';
+import { ActionClient } from '../contracts/clients/action';
 
+import assetTransfer from '../contracts/lib/assetTransfer';
 import createToken from '../contracts/lib/createToken';
 import optInToAsset from '../contracts/lib/optInToAsset';
-import assetTransfer from '../contracts/lib/assetTransfer';
 
 const fixture = algorandFixture();
 

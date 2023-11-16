@@ -15,17 +15,29 @@ class Action extends Contract {
      */
     tokenAsset = GlobalStateKey<Asset>({ key: 'ta' });
 
-    /**
-     * Action details including goal amount, total donations received, and timestamps.
-     */
-    goal = GlobalStateKey<uint64>({ key: 'g' }); // The goal amount for the action in USDC
-    totalDonations = GlobalStateKey<uint64>({ key: 'td' }); // Total amount of donations received
-    donations = BoxMap<Address, uint64>(); // Mapping of donor addresses to their donation amounts
-    startDate = GlobalStateKey<uint64>({ key: 'sd' }); // Start date of the action (unix timestamp)
-    endDate = GlobalStateKey<uint64>({ key: 'ed' }); // End date of the action (unix timestamp)
-    minDonationAmount = GlobalStateKey<uint64>({ key: 'mda' }); // Minimum donation amount required
-    dispenseRecords = BoxMap<uint64, dispenseRecord>({ prefix: 'dr' }); // Records of funds dispensed from the contract
-    availableBalance = GlobalStateKey<uint64>({ key: 'ab' }); // Available balance in the contract for dispensing
+    // The goal amount for the action in USDC
+    goal = GlobalStateKey<uint64>({ key: 'g' });
+
+    // Total amount of donations received
+    totalDonations = GlobalStateKey<uint64>({ key: 'td' });
+
+    // Mapping of donor addresses to their donation amounts
+    donations = BoxMap<Address, uint64>();
+
+    // Start date of the action (unix timestamp)
+    startDate = GlobalStateKey<uint64>({ key: 'sd' });
+
+    // End date of the action (unix timestamp)
+    endDate = GlobalStateKey<uint64>({ key: 'ed' });
+
+    // Minimum donation amount required
+    minDonationAmount = GlobalStateKey<uint64>({ key: 'mda' });
+
+    // Records of funds dispensed from the contract
+    dispenseRecords = BoxMap<uint64, dispenseRecord>({ prefix: 'dr' });
+
+    // Available balance in the contract for dispensing
+    availableBalance = GlobalStateKey<uint64>({ key: 'ab' });
 
     /**
      * Initializes the smart contract with default values.
